@@ -55,9 +55,27 @@ Keep the caption under 100 words and include a simple call to action.
 
       Then identify the three most important improvements we should prioritize before         our next event.
 
-## Planned Languages
+## Tech Stack
 
-- React
-- Node.js
-- SQLite
+- React (Vite) frontend
+- Node.js / Express backend
+- Anthropic Claude API for the AI features
+
+## Running the app locally
+
+```bash
+npm run install:all   # installs client + server dependencies
+npm run dev            # starts backend (:3001) and frontend (:5173)
+```
+
+Then open http://localhost:5173.
+
+By default the app runs with mock AI responses so it's demoable without an API key.
+To use real Claude responses, copy `server/.env.example` to `server/.env` and set:
+
+```
+ANTHROPIC_API_KEY=your-key-here
+```
+
+Restart `npm run dev` after adding the key — every feature switches to live Claude calls automatically.
 
