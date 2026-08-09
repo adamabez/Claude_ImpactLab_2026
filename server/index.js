@@ -1,4 +1,5 @@
 require('dotenv').config({ quiet: true });
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const { callClaude } = require('./claude');
@@ -6,6 +7,9 @@ const { callClaude } = require('./claude');
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+const clientDist = path.join(__dirname, '../client/dist');
+app.use(express.static(clientDist));
 
 const PORT = process.env.PORT || 3001;
 
@@ -138,6 +142,10 @@ Bring a friend, bring your appetite, and come say hi. 👋
     console.error(err);
     res.status(500).json({ error: 'Failed to generate caption.' });
   }
+});
+
+app.get(/^\/(?!api).*/, (req, res) => {
+  res.sendFile(path.join(clientDist, 'index.html'));
 });
 
 app.listen(PORT, () => {
